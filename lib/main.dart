@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
+import 'firebase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -193,6 +194,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: const Text(
                   'データをすべて取得',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Spacer(),
+              TextButton(
+                onPressed: () => {
+                  // Firestoreページに遷移
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FirebasePage()),
+                  )
+                },
+                child: const Text(
+                  'Firebaseページ',
                   style: TextStyle(fontSize: 24),
                 ),
               ),

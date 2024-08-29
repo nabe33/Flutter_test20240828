@@ -1,98 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'firebase_options.dart';
 
-class FirebasePage extends StatelessWidget {
+class FirebasePage extends StatefulWidget {
   FirebasePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Firestore
-    final cities = FirebaseFirestore.instance.collection("cities");
-    final data1 = <String, dynamic>{
-      "name": "San Francisco",
-      "state": "CA",
-      "country": "USA",
-      "capital": false,
-      "population": 860000,
-      "regions": ["west_coast", "norcal"]
-    };
-    cities.doc("SF").set(data1);
+  _FirebasePageState createState() => _FirebasePageState();
+}
 
-    final data2 = <String, dynamic>{
-      "name": "Los Angeles",
-      "state": "CA",
-      "country": "USA",
-      "capital": false,
-      "population": 3900000,
-      "regions": ["west_coast", "socal"],
-    };
-    cities.doc("LA").set(data2);
+class _FirebasePageState extends State<FirebasePage> {
+  List<String> _dataList = [];
 
-    final data3 = <String, dynamic>{
-      "name": "Washington D.C.",
-      "state": null,
-      "country": "USA",
-      "capital": true,
-      "population": 680000,
-      "regions": ["east_coast"]
-    };
-    cities.doc("DC").set(data3);
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
 
-    final data4 = <String, dynamic>{
-      "name": "Tokyo",
-      "state": null,
-      "country": "Japan",
-      "capital": true,
-      "population": 9000000,
-      "regions": ["kanto", "honshu"]
-    };
-    cities.doc("TOK").set(data4);
-
-    final data5 = <String, dynamic>{
-      "name": "Beijing",
-      "state": null,
-      "country": "China",
-      "capital": true,
-      "population": 21500000,
-      "regions": ["jingjinji", "hebei"],
-    };
-    cities.doc("BJ").set(data5);
-
-    // **Ex: Get various references to the Firestore service **
-    // final docRef = FirebaseFirestore.instance.collection("cities").doc("SF");
-
-    // final docRef = FirebaseFirestore.instance.collection("cities");
-
+  void _fetchData() {
     final docRef = FirebaseFirestore.instance
         .collection("cities")
         .orderBy("name", descending: true)
         .limit(3);
 
-    // final docRef = FirebaseFirestore.instance
-    //     .collection("cities")
-    //     .where("state", isEqualTo: "CA");
-
-    // final docRef = FirebaseFirestore.instance
-    //     .collection("cities")
-    //     .where("capital", isEqualTo: true);
-
-    // docRef.snapshots().listen(
-    //       (event) => print("current data: ${event.data()}"),
-    //       onError: (error) => print("Listen failed: $error"),
-    //     );
     docRef.get().then(
       (event) {
         print("成功!");
+        List<String> dataList = [];
         for (var doc in event.docs) {
-          print('${doc.id} => ${doc.data()}');
+          dataList.add('${doc.id} => ${doc.data()}');
         }
+        setState(() {
+          _dataList = dataList;
+        });
       },
       onError: (error) => print("Error completing: $error"),
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -106,6 +53,16 @@ class FirebasePage extends StatelessWidget {
             children: <Widget>[
               const Text('Firebase Firestore'),
               const SizedBox(height: 24),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _dataList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(_dataList[index]),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('ログイン'),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   // Firestoreからデータを取得
@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 24),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   // Firestoreにデータを書き込む
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 24),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   // Firestoreにデータを追加
@@ -182,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 24),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   // Firestoreの全データを取得
@@ -197,13 +197,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 24),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () => {
                   // Firestoreページに遷移
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FirebasePage()),
+                    MaterialPageRoute(builder: (context) => const FirebasePage()),
                   )
                 },
                 child: const Text(

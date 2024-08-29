@@ -1,10 +1,9 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'fb_storage.dart';
 
 class FirebasePage extends StatefulWidget {
-  FirebasePage({super.key});
+  const FirebasePage({super.key});
 
   @override
   _FirebasePageState createState() => _FirebasePageState();
@@ -71,7 +70,7 @@ class _FirebasePageState extends State<FirebasePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => FirebaseStoragePage()),
+                        builder: (context) => const FirebaseStoragePage()),
                   )
                 },
                 child: const Text(

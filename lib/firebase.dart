@@ -1,5 +1,7 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'fb_storage.dart';
 
 class FirebasePage extends StatefulWidget {
   FirebasePage({super.key});
@@ -61,6 +63,20 @@ class _FirebasePageState extends State<FirebasePage> {
                       title: Text(_dataList[index]),
                     );
                   },
+                ),
+              ),
+              TextButton(
+                onPressed: () => {
+                  // Firestoreページに遷移
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FirebaseStoragePage()),
+                  )
+                },
+                child: const Text(
+                  'Firebase Storageページ',
+                  style: TextStyle(fontSize: 24),
                 ),
               ),
             ],
